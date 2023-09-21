@@ -1,0 +1,32 @@
+{% extends "encyclopedia/layout.html" %}
+
+
+{% block title %}
+    Create New Page
+{% endblock %}
+
+{% block body %}
+    <h1>Create a New Wiki Page</h1>
+    <form action="{% url 'create' %}" method="POST">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title">
+        {% for message in messages %}
+            <div class="container-fluid p-0">
+                <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="True">&times;</span>
+                    </button>
+                    <p style="color: red;">{{ message }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        <p><label for="markdown">Body:</label></p>
+        <textarea id="markdown" name="markdown" rows="1" cols="10" placeholder="" value="Enter Markdown Here">
+            {{ markdown }}
+        </textarea>
+        <br>
+        <input type="submit" value="Save">
+      </form>
+
+{% endblock %}
